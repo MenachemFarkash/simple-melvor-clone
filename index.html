@@ -10,11 +10,22 @@
     <body>
         <div>
             <div class="skill-container">
-                <h1 class="skill-name">Woodcutting</h1>
-                <h2 class="skill-xp">XP: <span>0</span></h2>
-                <h2 class="skill-level">LEVEL: <span>0</span></h2>
+                <h1 class="woodcutting-skill-name">Woodcutting</h1>
+                <h2 class="woodcutting-skill-xp">XP: <span>0</span></h2>
+                <h2 class="woodcutting-skill-level">LEVEL: <span>0</span></h2>
                 <h2 class="logs">LOGS: <span>0</span></h2>
-                <button class="start-skill-button" onclick="toggleWoodcutting()">Start Chopping</button>
+                <button class="woodcutting-start-skill-button" onclick="toggleSkill('woodcutting')">
+                    Start Chopping
+                </button>
+            </div>
+            <div class="skill-container">
+                <h1 class="mining-skill-name">Mining</h1>
+                <h2 class="mining-skill-xp">XP: <span>0</span></h2>
+                <h2 class="mining-skill-level">LEVEL: <span>0</span></h2>
+                <h2 class="ores">ORES: <span>0</span></h2>
+                <button class="mining-start-skill-button" onclick="toggleSkill('mining')">
+                    Start Mining
+                </button>
             </div>
         </div>
     </body>

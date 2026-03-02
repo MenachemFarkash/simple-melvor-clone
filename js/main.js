@@ -2,15 +2,28 @@ let game = {
     level: 1,
     xp: 0,
     logs: 0,
-    isWoodcutting: false,
+    activeSkill: "",
     lastUpdate: Date.now(),
 }
-const interval = 2000
+
+let skills = {
+    woodcutting: {
+        level: 1,
+        xp: 0,
+        isActive: false,
+        interval: 2000,
+        progress: 0,
+    },
+    mining: {
+        level: 1,
+        xp: 0,
+        isActive: false,
+        interval: 1500,
+        progress: 0,
+    },
+}
 
 loadGame()
-applyOfflineProgress()
-
-let progress = 0
 
 setInterval(gameLoop, 100)
 setInterval(saveGame, 10000)
@@ -20,49 +33,53 @@ function gameLoop() {
     const delta = now - game.lastUpdate
     game.lastUpdate = now
 
-    if (!game.isWoodcutting) return
+    if (!game.activeSkill) return
 
-    processWoodcutting(delta)
+    processSkill(delta)
     updateUI()
 }
 
-function processWoodcutting(delta) {
-    progress += delta
+function processSkill(delta, skill) {
+    skills[game.activeSkill].progress += delta
 
-    if (progress >= interval) {
-        progress -= interval
-        performAction()
+    if (skills[game.activeSkill].progress >= skills[game.activeSkill].interval) {
+        skills[game.activeSkill].progress -= skills[game.activeSkill].interval
+        performAction(skill)
     }
 }
 
-function performAction() {
+function performAction(skill) {
     game.logs += 1
-    game.xp += 10
+    skills[game.activeSkill].xp += 10
 
     checkLevelUp()
     updateUI()
 }
 
 function checkLevelUp() {
-    const xpNeeded = game.level * 100
+    const xpNeeded = skills[game.activeSkill].level * 100
 
-    if (game.xp >= xpNeeded) {
-        game.xp -= xpNeeded
-        game.level += 1
+    if (skills[game.activeSkill].xp >= xpNeeded) {
+        skills[game.activeSkill].xp -= xpNeeded
+        skills[game.activeSkill].level += 1
     }
 }
 
-function toggleWoodcutting() {
-    game.isWoodcutting = !game.isWoodcutting
+function toggleSkill(skill) {
+    if (skill === game.activeSkill) {
+        game.activeSkill = game.activeSkill ? "" : skill
+    } else {
+        game.activeSkill = skill
+    }
 
-    const btn = document.querySelector(".start-skill-button")
-    btn.innerText = game.isWoodcutting ? "Stop Woodcutting" : "Start Woodcutting"
+    const btn = document.querySelector(`.${game.activeSkill}-start-skill-button`)
+    btn.innerText = game.activeSkill ? `Stop ${game.activeSkill}` : `Start ${game.activeSkill}`
 }
 
 function updateUI() {
-    document.querySelector(".skill-level span").innerText = game.level
-    document.querySelector(".skill-xp span").innerText = game.xp
-    document.querySelector(".logs span").innerText = game.logs
+    if (!game.activeSkill) return
+    document.querySelector(`.${game.activeSkill}-skill-level span`).innerText = skills[game.activeSkill].level
+    document.querySelector(`.${game.activeSkill}-skill-xp span`).innerText = skills[game.activeSkill].xp
 }
 
 function saveGame() {
@@ -74,19 +91,4 @@ function loadGame() {
     if (!save) return
 
     game = JSON.parse(save)
-}
-
-function applyOfflineProgress() {
-    const now = Date.now()
-    const offlineTime = now - game.lastUpdate
-
-    if (game.isWoodcutting) {
-        const actions = Math.floor(offlineTime / interval)
-
-        for (let i = 0; i < actions; i++) {
-            performAction()
-        }
-    }
-
-    game.lastUpdate = now
 }
