@@ -65,15 +65,17 @@ function checkLevelUp() {
     }
 }
 
+//TODO : fix toggle innerText null
 function toggleSkill(skill) {
+    const btn = document.querySelector(`.${skill}-start-skill-button`)
+
     if (skill === game.activeSkill) {
-        game.activeSkill = game.activeSkill ? "" : skill
+        btn.innerText = `Start ${game.activeSkill}`
+        game.activeSkill = ""
     } else {
         game.activeSkill = skill
+        btn.innerText = `Stop ${game.activeSkill}`
     }
-
-    const btn = document.querySelector(`.${game.activeSkill}-start-skill-button`)
-    btn.innerText = game.activeSkill ? `Stop ${game.activeSkill}` : `Start ${game.activeSkill}`
 }
 
 function updateUI() {

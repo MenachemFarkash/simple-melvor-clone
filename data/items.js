@@ -1,0 +1,25 @@
+const gItemsList = {
+    woodcutting: [
+        { id: 1, itemName: "normal-logs", baseValue: 5 },
+        { id: 2, itemName: "oak-logs", baseValue: 5 },
+        { id: 3, itemName: "willow-logs", baseValue: 5 },
+        { id: 4, itemName: "teak-logs", baseValue: 5 },
+        { id: 5, itemName: "maple-logs", baseValue: 5 },
+        { id: 6, itemName: "mahogany-logs", baseValue: 5 },
+        { id: 7, itemName: "magic-logs", baseValue: 5 },
+        { id: 8, itemName: "yew-logs", baseValue: 5 },
+        { id: 9, itemName: "redwood-logs", baseValue: 5 },
+    ],
+    mining: [
+        { id: 10, itemName: "copper-ore", baseValue: 5 },
+        { id: 11, itemName: "tin-ore", baseValue: 5 },
+        { id: 12, itemName: "iron-ore", baseValue: 5 },
+        { id: 13, itemName: "coal-ore", baseValue: 5 },
+        { id: 14, itemName: "silver-ore", baseValue: 5 },
+        { id: 15, itemName: "gold-ore", baseValue: 5 },
+        { id: 16, itemName: "mithril-ore", baseValue: 5 },
+        { id: 17, itemName: "adamentite-ore", baseValue: 5 },
+        { id: 18, itemName: "runite-ore", baseValue: 5 },
+        { id: 19, itemName: "dragonite-ore", baseValue: 5 },
+    ],
+}
