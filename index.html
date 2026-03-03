@@ -3,6 +3,12 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Bungee&family=Oswald:wght@200..700&display=swap"
+            rel="stylesheet"
+        />
         <script src="data/items.js" defer></script>
         <script src="js/inventory.js" defer></script>
         <script src="js/main.js" defer></script>
@@ -10,7 +16,10 @@
         <title>Simple Melvor Clone</title>
     </head>
     <body>
-        <nav class="navbar"></nav>
+        <nav class="navbar">
+            <h2 class="current-active-skill-level">Level: <span>17</span>/99</h2>
+            <h2 class="current-active-skill-xp">XP: <span class="">100200</span>/120300</h2>
+        </nav>
         <aside class="sidebar"></aside>
         <div class="skill-page"></div>
     </body>

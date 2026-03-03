@@ -67,7 +67,6 @@ function checkLevelUp() {
 }
 
 function toggleSkill(skill, itemId) {
-    resetGameState()
     gItemsList[skill].forEach((item) => {
         const btn = document.querySelector(`.item-${item.id}`)
         btn.innerText = "START"
