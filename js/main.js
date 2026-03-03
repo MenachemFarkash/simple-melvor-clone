@@ -67,21 +67,30 @@ function checkLevelUp() {
 }
 
 function toggleSkill(skill, itemId) {
+    resetGameState()
+    gItemsList[skill].forEach((item) => {
+        const btn = document.querySelector(`.item-${item.id}`)
+        btn.innerText = "START"
+    })
+
     const item = gItemsList[skill].find((i) => i.id === itemId)
-    console.log(item)
     const btn = document.querySelector(`.item-${itemId}`)
 
     if (skill === game.activeSkill) {
         btn.innerText = "START"
-        game.activeSkill = ""
-        game.item = ""
-        game.interval = 0
+        resetGameState()
     } else {
         game.activeSkill = skill
         game.item = item.itemName
         game.interval = item.baseInterval
         btn.innerText = "STOP"
     }
+}
+
+function resetGameState() {
+    game.activeSkill = ""
+    game.item = ""
+    game.interval = 0
 }
 
 function updateUI() {

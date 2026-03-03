@@ -3,14 +3,36 @@
 }
 
 body {
+    display: grid;
+    grid-template-areas:
+        "sidebar navbar"
+        "sidebar main"
+        "sidebar main";
+
+    grid-template-columns: minmax(100px, 1fr) 3fr;
+    grid-template-rows: minmax(100px, 1fr) 7fr;
     background-color: black;
     color: white;
+    height: 100vh;
+    margin: 0;
+}
+
+.navbar {
+    grid-area: navbar;
+    background-color: rgb(82, 212, 184);
+}
+.sidebar {
+    grid-area: sidebar;
+    background-color: rgb(50, 160, 136);
 }
 
 .skill-page {
+    grid-area: main;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
+    padding: 1rem;
+    overflow-y: auto;
 }
 
 .skill-container {
@@ -22,4 +44,9 @@ body {
     border-radius: 7px;
     border: 1px solid white;
     font-family: monospace;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
 }
