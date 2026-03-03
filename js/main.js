@@ -1,8 +1,9 @@
 let game = {
     level: 1,
     xp: 0,
-    logs: 0,
+    item: "",
     activeSkill: "",
+    interval: 0,
     lastUpdate: Date.now(),
 }
 
@@ -11,14 +12,12 @@ let skills = {
         level: 1,
         xp: 0,
         isActive: false,
-        interval: 2000,
         progress: 0,
     },
     mining: {
         level: 1,
         xp: 0,
         isActive: false,
-        interval: 1500,
         progress: 0,
     },
 }
@@ -40,16 +39,18 @@ function gameLoop() {
 }
 
 function processSkill(delta, skill) {
+    if (!game.activeSkill) return
+
     skills[game.activeSkill].progress += delta
 
-    if (skills[game.activeSkill].progress >= skills[game.activeSkill].interval) {
-        skills[game.activeSkill].progress -= skills[game.activeSkill].interval
+    if (skills[game.activeSkill].progress >= game.interval) {
+        skills[game.activeSkill].progress -= game.interval
         performAction(skill)
     }
 }
 
-function performAction(skill) {
-    game.logs += 1
+function performAction() {
+    giveItem(game.item, 1)
     skills[game.activeSkill].xp += 10
 
     checkLevelUp()
@@ -65,23 +66,29 @@ function checkLevelUp() {
     }
 }
 
-//TODO : fix toggle innerText null
-function toggleSkill(skill) {
-    const btn = document.querySelector(`.${skill}-start-skill-button`)
+function toggleSkill(skill, itemId) {
+    const item = gItemsList[skill].find((i) => i.id === itemId)
+    console.log(item)
+    const btn = document.querySelector(`.item-${itemId}`)
 
     if (skill === game.activeSkill) {
-        btn.innerText = `Start ${game.activeSkill}`
+        btn.innerText = "START"
         game.activeSkill = ""
+        game.item = ""
+        game.interval = 0
     } else {
         game.activeSkill = skill
-        btn.innerText = `Stop ${game.activeSkill}`
+        game.item = item.itemName
+        game.interval = item.baseInterval
+        btn.innerText = "STOP"
     }
 }
 
 function updateUI() {
     if (!game.activeSkill) return
-    document.querySelector(`.${game.activeSkill}-skill-level span`).innerText = skills[game.activeSkill].level
-    document.querySelector(`.${game.activeSkill}-skill-xp span`).innerText = skills[game.activeSkill].xp
+    const item = gItemsList[game.activeSkill].find((i) => i.itemName === game.item)
+    document.querySelector(`.${item.itemName}-skill-level span`).innerText = skills[game.activeSkill].level
+    document.querySelector(`.${item.itemName}-skill-xp span`).innerText = skills[game.activeSkill].xp
 }
 
 function saveGame() {
@@ -95,7 +102,7 @@ function loadGame() {
     game = JSON.parse(save)
 }
 
-renderSkillContainer("mining")
+renderSkillContainer("woodcutting")
 
 function renderSkillContainer(skill) {
     const skillItems = gItemsList[skill]
@@ -103,11 +110,11 @@ function renderSkillContainer(skill) {
     skillItems.map((item) => {
         skillsContainerHTML += `
             <div class="skill-container">
-                <h1 class="${skill}-skill-name">${item.displayName}</h1>
-                <h2 class="${skill}-skill-xp">XP: <span>0</span></h2>
-                <h2 class="${skill}-skill-level">LEVEL: <span>0</span></h2>
-                <button class="${skill}-start-skill-button" onclick="toggleSkill('${skill}')">
-                    Start ${skill}
+                <h1 class="${item.itemName}-skill-name">${item.displayName}</h1>
+                <h2 class="${item.itemName}-skill-xp">XP: <span>0</span></h2>
+                <h2 class="${item.itemName}-skill-level">LEVEL: <span>0</span></h2>
+                <button class="${skill}-start-skill-button item-${item.id}" onclick="toggleSkill('${skill}', ${item.id})">
+                    START
                 </button>
             </div>
         `
