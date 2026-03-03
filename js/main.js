@@ -23,10 +23,10 @@ let skills = {
     },
 }
 
-loadGame()
+// loadGame()
 
 setInterval(gameLoop, 100)
-setInterval(saveGame, 10000)
+// setInterval(saveGame, 10000)
 
 function gameLoop() {
     const now = Date.now()
@@ -93,4 +93,25 @@ function loadGame() {
     if (!save) return
 
     game = JSON.parse(save)
+}
+
+renderSkillContainer("mining")
+
+function renderSkillContainer(skill) {
+    const skillItems = gItemsList[skill]
+    let skillsContainerHTML = ""
+    skillItems.map((item) => {
+        skillsContainerHTML += `
+            <div class="skill-container">
+                <h1 class="${skill}-skill-name">${item.displayName}</h1>
+                <h2 class="${skill}-skill-xp">XP: <span>0</span></h2>
+                <h2 class="${skill}-skill-level">LEVEL: <span>0</span></h2>
+                <button class="${skill}-start-skill-button" onclick="toggleSkill('${skill}')">
+                    Start ${skill}
+                </button>
+            </div>
+        `
+    })
+
+    document.querySelector(".skill-page").innerHTML = skillsContainerHTML
 }
