@@ -1,0 +1,10 @@
+.navbar {
+    grid-area: navbar;
+    background-color: var(--panel-background-color);
+    padding: 1rem;
+}
+
+.navbar h1,
+.navbar h2 {
+    margin: 0;
+}

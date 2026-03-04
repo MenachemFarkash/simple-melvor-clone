@@ -1,0 +1,30 @@
+.sidebar {
+    grid-area: sidebar;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--panel-background-color);
+    border: 3px solid rgb(122, 76, 22);
+    padding: 1rem;
+}
+
+.sidebar-skills-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    border: 1px solid yellow;
+}
+
+.sidebar-skills-title h1 {
+    margin: 0;
+    padding: 1rem;
+}
+
+.sidebar-skills-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sidebar-skill-element {
+    text-align: center;
+    border: 1px solid black;
+}
