@@ -50,7 +50,7 @@ function processSkill(delta, skill) {
 }
 
 function performAction() {
-    giveItem(game.item, 1)
+    givePooledItem(1, 1)
     skills[game.activeSkill].xp += 10
 
     checkLevelUp()
@@ -67,12 +67,12 @@ function checkLevelUp() {
 }
 
 function toggleSkill(skill, itemId) {
-    gItemsList[skill].forEach((item) => {
+    gActionsList[skill].forEach((item) => {
         const btn = document.querySelector(`.item-${item.id}`)
         btn.innerText = "START"
     })
 
-    const item = gItemsList[skill].find((i) => i.id === itemId)
+    const item = gActionsList[skill].find((i) => i.id === itemId)
     const btn = document.querySelector(`.item-${itemId}`)
 
     if (skill === game.activeSkill) {
@@ -94,9 +94,9 @@ function resetGameState() {
 
 function updateUI() {
     if (!game.activeSkill) return
-    const item = gItemsList[game.activeSkill].find((i) => i.itemName === game.item)
-    document.querySelector(`.${item.itemName}-skill-level span`).innerText = skills[game.activeSkill].level
-    document.querySelector(`.${item.itemName}-skill-xp span`).innerText = skills[game.activeSkill].xp
+    const item = gActionsList[game.activeSkill].find((i) => i.itemName === game.item)
+    document.querySelector(`.current-active-skill-level span`).innerText = skills[game.activeSkill].level
+    document.querySelector(`.current-active-skill-xp span`).innerText = skills[game.activeSkill].xp
 }
 
 function saveGame() {
@@ -113,14 +113,12 @@ function loadGame() {
 renderSkillContainer("woodcutting")
 
 function renderSkillContainer(skill) {
-    const skillItems = gItemsList[skill]
+    const skillItems = gActionsList[skill]
     let skillsContainerHTML = ""
     skillItems.map((item) => {
         skillsContainerHTML += `
             <div class="skill-container">
                 <h1 class="${item.itemName}-skill-name">${item.displayName}</h1>
-                <h2 class="${item.itemName}-skill-xp">XP: <span>0</span></h2>
-                <h2 class="${item.itemName}-skill-level">LEVEL: <span>0</span></h2>
                 <button class="${skill}-start-skill-button item-${item.id}" onclick="toggleSkill('${skill}', ${item.id})">
                     START
                 </button>
