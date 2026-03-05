@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 .sidebar {
     grid-area: sidebar;
     display: flex;
@@ -27,4 +31,20 @@
 .sidebar-skill-element {
     text-align: center;
     border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(145deg, #705a3c, #a77d47);
+    border: 2px solid #5c3007;
+    box-shadow:
+        inset 0 2px 2px rgba(255, 255, 255, 0.05),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.6),
+        0 3px 15px rgba(0, 0, 0, 0.7);
+    border-radius: 2px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.sidebar-skill-element:hover {
+    background: linear-gradient(145deg, #6e5735, #a5793e);
 }
