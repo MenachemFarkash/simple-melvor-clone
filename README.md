@@ -1,6 +1,6 @@
 # simple-melvor-clone
 
-A post‑apocalyptic idle / incremental RPG inspired by _Melvor Idle_. The project started as a simple clone, but has grown into its own world with custom mechanics, skills, and a polished user interface.
+A post‑apocalyptic idle / incremental RPG inspired by _Melvor Idle_. The peoject is still a simple clone.
 
 ## 🎮 About the Game
 
